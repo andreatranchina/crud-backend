@@ -32,10 +32,10 @@ const seedCampuses = [
 ];
 
 const seedStudents = [
-    {firstName: 'Lauren', lastName: 'Smith', email: "lauren.smith@gmail.com", gpa: "3.88"},
-    {firstName: 'Ethan', lastName: 'Chen', email: "ethan.chen@yahoo.com", gpa: "3.05"},
-    {firstName: 'Sandra', lastName: 'Caputo', email: "sandra.caputo@aol.com", gpa: "3.50"},
-    {firstName: 'Fatima', lastName: 'Uddin', email: "fatima.uddin", gpa: "3.78"},
+    {firstName: 'Lauren', lastName: 'Smith', email: "lauren.smith@gmail.com", gpa: "3.88", campusId: 2},
+    {firstName: 'Ethan', lastName: 'Chen', email: "ethan.chen@yahoo.com", gpa: "3.05", campusId: 1},
+    {firstName: 'Sandra', lastName: 'Caputo', email: "sandra.caputo@aol.com", gpa: "3.50", campusId: 2},
+    {firstName: 'Fatima', lastName: 'Uddin', email: "fatima.uddin", gpa: "3.78", campusId: 4},
 ];
 
 const seed = async () => {
