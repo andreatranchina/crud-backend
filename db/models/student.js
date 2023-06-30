@@ -35,4 +35,4 @@ const Student = db.define('student', {
     },
 })
 
-module.exports = Campus;
+module.exports = Student;
