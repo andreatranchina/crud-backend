@@ -5,7 +5,7 @@ const db = require('../db');
 const Campus = db.define('campus', {
     name: {
         type: DataTypes.STRING,
-        allownull: false,
+        allowNull: false,
     },
     imageUrl: {
         type: DataTypes.STRING(1000),
@@ -13,11 +13,11 @@ const Campus = db.define('campus', {
     },
     address: {
         type: DataTypes.STRING(1000),
-        allownull: false,
+        allowNull: false,
     },
     description: {
         type: DataTypes.TEXT,
-        allownull: false
+        allowNull: false
     },
 })
 
