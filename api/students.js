@@ -43,5 +43,16 @@ router.post('/', async(req, res, next) => {
     }
 })
 
-
+//update student record
+router.put('/:id', async(req, res, next) => {
+    try{
+        const { id } = req.params;
+        const { firstName, lastName, email, imageUrl, gpa } = req.body;
+        const updatedStudent = await Shoes.update({firstName, lastName, email, imageUrl, gpa}, {where: {id: id}});
+        res.send("Success");
+    }
+    catch(error){
+        next(error);
+    }
+})
 module.exports = router;
