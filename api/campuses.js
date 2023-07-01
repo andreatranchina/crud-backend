@@ -9,7 +9,7 @@ const { Campus } = require('../db/models');
 router.get('/', async (req, res, next) => {
     try{
         const allCampuses = await Campus.findAll();
-        allCampuses? res.status(200).json(allStudents): res.status(404).send('Campus Listing Not Found');
+        allCampuses? res.status(200).json(allCampuses): res.status(404).send('Campus Listing Not Found');
 
     }
     catch(error){
@@ -18,6 +18,16 @@ router.get('/', async (req, res, next) => {
     }
 })
 
+//get a single campus by id/pk (SELECT * FROM campuses WHERE id = pk)
+router.get('/:id', async(req, res, next) =>{
+    try{
+        const {id} = req.params;
+        const campus = await Campus.findByPk(id);
+        campus? res.status(200).json(campus): res.status(404).send('Campus Not Found');
 
+    } catch (error){
+        next(error);
+    }
+});
 
 module.exports = router;
