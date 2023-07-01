@@ -30,4 +30,17 @@ router.get('/:id', async(req, res, next) =>{
     }
 });
 
+//add a new student record to the students table (INSERT INTO...VALUES)
+router.post('/', async(req, res, next) => {
+    try{
+        const {name, imageUrl, address, description} = req.body;
+        const newCampus= Campus.build({name, imageUrl, address, description});
+        await newCampus.save();
+        res.json(newCampus);
+    }
+    catch(error){
+        next(error);
+    }
+})
+
 module.exports = router;
