@@ -33,8 +33,8 @@ router.get('/:id', async(req, res, next) =>{
 //add a new student record to the students table (INSERT INTO...VALUES)
 router.post('/', async(req, res, next) => {
     try{
-        const {firstName, lastName, email, imageUrl, gpa } = req.body;
-        const newStudent= Student.build({firstName, lastName, email, imageUrl, gpa});
+        const {firstName, lastName, email, imageUrl, gpa, campusId } = req.body;
+        const newStudent= Student.build({firstName, lastName, email, imageUrl, gpa, campusId});
         await newStudent.save();
         res.json(newStudent);
     }
@@ -47,8 +47,17 @@ router.post('/', async(req, res, next) => {
 router.put('/:id', async(req, res, next) => {
     try{
         const { id } = req.params;
-        const { firstName, lastName, email, imageUrl, gpa } = req.body;
-        const updatedStudent = await Shoes.update({firstName, lastName, email, imageUrl, gpa}, {where: {id: id}});
+        const { firstName, lastName, email, imageUrl, gpa, campusId } = req.body;
+
+        const oldStudent = await Student.findByPk(id);
+        firstName? null: firstName === oldStudent.firstName;
+        lastName? null: lastName === oldStudent.lastName;
+        email? null: firstName === oldStudent.email;
+        imageUrl? null: firstName === oldStudent.imageUrl;
+        gpa? null: firstName === oldStudent.gpa;
+        campusId? null: campusId === oldStudent.campusId;
+
+        const updatedStudent = await Student.update({firstName, lastName, email, imageUrl, gpa, campusId}, {where: {id: id}});
         res.send("Success");
     }
     catch(error){
@@ -60,7 +69,7 @@ router.put('/:id', async(req, res, next) => {
 router.delete('/:id', async(req, res, next) =>{
     try{
         const {id} = req.params;
-        const studentToDelete = await Shoes.findByPk(id);
+        const studentToDelete = await Student.findByPk(id);
         await studentToDelete.destroy();
         res.json(studentToDelete);
 
