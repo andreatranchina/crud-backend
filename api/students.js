@@ -50,6 +50,7 @@ router.put('/:id', async(req, res, next) => {
         const { firstName, lastName, email, imageUrl, gpa, campusId } = req.body;
 
         const oldStudent = await Student.findByPk(id);
+        //null - nothing changed, move on
         firstName? null: firstName === oldStudent.firstName;
         lastName? null: lastName === oldStudent.lastName;
         email? null: firstName === oldStudent.email;
