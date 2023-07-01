@@ -55,4 +55,18 @@ router.put('/:id', async(req, res, next) => {
         next(error);
     }
 })
+
+//delete a record by id (pk)
+router.delete('/:id', async(req, res, next) =>{
+    try{
+        const {id} = req.params;
+        const studentToDelete = await Shoes.findByPk(id);
+        await studentToDelete.destroy();
+        res.json(studentToDelete);
+
+    } catch (error){
+        next(error);
+    }
+});
+
 module.exports = router;
