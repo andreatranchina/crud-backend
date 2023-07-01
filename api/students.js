@@ -36,6 +36,7 @@ router.post('/', async(req, res, next) => {
         const {firstName, lastName, email, imageUrl, gpa, campusId } = req.body;
         const newStudent= Student.build({firstName, lastName, email, imageUrl, gpa, campusId});
         await newStudent.save();
+        // const newStudent = await Student.create(req.body);
         res.json(newStudent);
     }
     catch(error){
