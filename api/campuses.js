@@ -30,7 +30,7 @@ router.get('/:id', async(req, res, next) =>{
     }
 });
 
-//add a new student record to the students table (INSERT INTO...VALUES)
+//add a new campus record to the campuses table (INSERT INTO...VALUES)
 router.post('/', async(req, res, next) => {
     try{
         const {name, imageUrl, address, description} = req.body;
@@ -42,5 +42,18 @@ router.post('/', async(req, res, next) => {
         next(error);
     }
 })
+
+//delete a campus record by id (pk)
+router.delete('/:id', async(req, res, next) =>{
+    try{
+        const {id} = req.params;
+        const campusToDelete = await Campus.findByPk(id);
+        await campusToDelete.destroy();
+        res.json(campusToDelete);
+
+    } catch (error){
+        next(error);
+    }
+});
 
 module.exports = router;
