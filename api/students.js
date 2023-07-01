@@ -5,6 +5,7 @@ const { Student } = require('../db/models');
 
 // root: http://localhost/8080/api/students
 
+//get all students from the students tabel (SELECT * FROM students)
 router.get('/', async (req, res, next) => {
     try{
         const allStudents = await Student.findAll();
@@ -16,6 +17,18 @@ router.get('/', async (req, res, next) => {
         next(error);
     }
 })
+
+//get a single student by id/pk (SELECT * FROM students WHERE id = pk)
+router.get('/:id', async(req, res, next) =>{
+    try{
+        const {id} = req.params;
+        const student = await Student.findByPk(id);
+        student? res.status(200).json(student): res.status(404).send('Student Not Found');
+
+    } catch (error){
+        next(error);
+    }
+});
 
 
 module.exports = router;
