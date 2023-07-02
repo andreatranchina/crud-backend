@@ -48,19 +48,23 @@ router.post('/', async(req, res, next) => {
 router.put('/:id', async(req, res, next) => {
     try{
         const { id } = req.params;
-        const { firstName, lastName, email, imageUrl, gpa, campusId } = req.body;
+        let { firstName, lastName, email, imageUrl, gpa, campusId } = req.body;
+        console.log(req.body)
+        console.log(req.params);
 
         const oldStudent = await Student.findByPk(id);
         //null - nothing changed, move on
-        firstName? null: firstName === oldStudent.firstName;
-        lastName? null: lastName === oldStudent.lastName;
-        email? null: firstName === oldStudent.email;
-        imageUrl? null: firstName === oldStudent.imageUrl;
-        gpa? null: firstName === oldStudent.gpa;
-        campusId? null: campusId === oldStudent.campusId;
+        firstName? null: firstName = oldStudent.firstName;
+        lastName? null: lastName = oldStudent.lastName;
+        email? null: firstName = oldStudent.email;
+        imageUrl? null: firstName = oldStudent.imageUrl;
+        gpa? null: firstName = oldStudent.gpa;
+        campusId? null: campusId = oldStudent.campusId;
 
-        const updatedStudent = await Student.update({firstName, lastName, email, imageUrl, gpa, campusId}, {where: {id: id}});
-        res.send("Success");
+        const updatedStudent = await oldStudent.update({firstName, lastName, email, imageUrl, gpa, campusId})
+            // , {where: {id: id}});
+        await updatedStudent.save();    
+        res.send(updatedStudent);
     }
     catch(error){
         next(error);
