@@ -84,4 +84,20 @@ router.delete('/:id', async(req, res, next) =>{
     }
 });
 
+// Get students by campusId
+router.get('/byCampus/:campusId', async (req, res, next) => {
+  try {
+    const { campusId } = req.params;
+    const students = await Student.findAll({
+      where: {
+        campusId: campusId
+      }
+    });
+    students ? res.status(200).json(students) : res.status(404).send('Students Not Found for the Campus');
+
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
