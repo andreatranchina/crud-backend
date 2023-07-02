@@ -54,17 +54,16 @@ router.put('/:id', async(req, res, next) => {
 
         const oldStudent = await Student.findByPk(id);
         //null - nothing changed, move on
-        firstName? null: firstName = oldStudent.firstName;
-        lastName? null: lastName = oldStudent.lastName;
-        email? null: firstName = oldStudent.email;
-        imageUrl? null: firstName = oldStudent.imageUrl;
-        gpa? null: firstName = oldStudent.gpa;
-        campusId? null: campusId = oldStudent.campusId;
 
-        const updatedStudent = await oldStudent.update({firstName, lastName, email, imageUrl, gpa, campusId})
-            // , {where: {id: id}});
-        await updatedStudent.save();    
-        res.send(updatedStudent);
+        firstName? oldStudent.firstName = firstName: null
+        lastName? oldStudent.lastName = lastName : null
+        email? oldStudent.email = email : null
+        imageUrl? oldStudent.imageUrl = imageUrl : null
+        gpa? oldStudent.gpa = gpa : null
+        campusId? oldStudent.campusId = campusId : null
+        //oldStudent has now been updated
+        await oldStudent.save();    
+        res.send(oldStudent);
     }
     catch(error){
         next(error);
