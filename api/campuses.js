@@ -49,16 +49,20 @@ router.put('/:id', async(req, res, next) => {
         const { id } = req.params;
         const { name, imageUrl, address, description } = req.body;
 
-        const prevCampus = await Campus.findByPk(id);
-        //null - nothing changed, move on
-        name? null: name === prevCampus.name;
-        imageUrl? null: imageUrl === prevCampus.imageUrl;
-        address? null: address === prevCampus.adress;
-        description? null: description === prevCampus.description;
+        console.log(req.body)
+        console.log(req.params);
 
-        //boolean
-        const updatedCampus = await Campus.update({name, imageUrl, address, description}, {where: {id: id}});
-        res.send("Success");
+        const oldCampus = await Campus.findByPk(id);
+        //null - nothing changed, move on
+        name? oldCampus.name = name : null
+        imageUrl? oldCampus.imageUrl = imageUrl : null
+        address? oldCampus.adress = address : null
+        description? oldCampus.description = description : null
+
+        //oldCampus has now been updated
+        //const updatedCampus = await Campus.update({name, imageUrl, address, description}, {where: {id: id}});
+        await oldCampus.save();
+        res.send(oldCampus);
     }
     catch(error){
         next(error);
