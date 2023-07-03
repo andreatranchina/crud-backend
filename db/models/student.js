@@ -24,12 +24,13 @@ const Student = db.define('student', {
     },
     gpa: {
         type: DataTypes.FLOAT,
+        allowNull: false,
         valdate: {
             isNumeric: true,
             min: 0,
             max: 4,
-            // notNull: true,
-            // notEmpty: true,
+            notNull: true,
+            notEmpty: true,
         }
     },
 })
