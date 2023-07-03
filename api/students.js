@@ -99,4 +99,20 @@ router.get('/byCampus/:campusId', async (req, res, next) => {
   }
 });
 
+router.get('/byName/:firstName/:lastName', async(req, res, next)=>{
+    try{
+        const {firstName, lastName} = req.params;
+        const student = await Student.findOne({ 
+            where: {
+                firstName: firstName,
+                lastName: lastName,
+            } 
+        });
+        student ? res.status(200).json(student) : res.status(404).send('Students Not Found');
+    }
+    catch(error){
+        next(error);
+    }
+})
+
 module.exports = router;
