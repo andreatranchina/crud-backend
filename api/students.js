@@ -101,7 +101,7 @@ router.get('/byCampus/:campusId', async (req, res, next) => {
 
 router.get('/byName/:firstName/:lastName', async(req, res, next)=>{
     try{
-        const {firstName, lastName} = req.params;
+        const {firstName,lastName} = req.params;
         const student = await Student.findOne({ 
             where: {
                 firstName: firstName,
