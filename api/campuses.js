@@ -56,7 +56,7 @@ router.put('/:id', async(req, res, next) => {
         //null - nothing changed, move on
         name? oldCampus.name = name : null
         imageUrl? oldCampus.imageUrl = imageUrl : null
-        address? oldCampus.adress = address : null
+        address? oldCampus.address = address : null
         description? oldCampus.description = description : null
 
         //oldCampus has now been updated
