@@ -1,4 +1,5 @@
 //npm install express, nodemon, body-parser, pg, pg-hstore, sequelize,
+//modifications for vercel made
 const express = require ('express');
 const db = require('./db');
 const bodyParser = require('body-parser');
