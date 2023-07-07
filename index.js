@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const PORT = 8080;
 const cors = require('cors');
 const app = express();
+const pg = require('pg');
 
 
 //Middleware and mounting on API
