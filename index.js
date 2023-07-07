@@ -11,7 +11,7 @@ const pg = require('pg');
 
 //Middleware and mounting on API
 // app.use(bodyParser.urlencoded({extended: true}));
-app.use(cors({origin: 'https://64a864a051fcd500a44f332c--sparkly-daifuku-f0cc8c.netlify.app'}));
+app.use(cors({origin: 'https://64a878374bbc520b61702c0a--sparkly-daifuku-f0cc8c.netlify.app'}));
 // app.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*");
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
