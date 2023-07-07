@@ -29,6 +29,78 @@ router.get('/:id', async(req, res, next) =>{
         next(error);
     }
 });
+//Get the campuses by descending order
+router.get('/', async (req, res, next) => {
+    try{
+        const allStudents = await Student.findAll();
+        allStudents? res.status(200).json(allStudents): res.status(404).send('Student Listing Not Found');
+
+    }
+    catch(error){
+        // console.log(error.message);
+        next(error);
+    }
+})
+
+// Endpoint to get students sorted in alphabetical order (A-Z)
+router.get('/sortedStudent/ascending', async (req, res,next) => {
+  try {
+    const sortedStudents = await Student.findAll({
+      order: [['lastName', 'ASC']],
+    });
+    res.json(sortedStudents);
+  } catch (error) {
+    console.error(error);
+    next(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get students sorted in alphabetical order (Z-A)
+router.get('/sortedStudent/descending', async (req, res,next) => {
+  try {
+    const sortedStudents = await Student.findAll({
+      order: [['lastName', 'DESC']],
+    });
+    res.json(sortedStudents);
+  } catch (error) {
+    console.error(error);
+    next(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//get all the students and sort by highest gpa
+router.get('/sortedStudent/gpaHigh', async(req,res,next) => {
+    try {
+        const sortedStudents = await Student.findAll({
+            order: [['gpa','DESC']],
+        });
+        res.json(sortedStudents);
+    } catch (error){
+        console.error(error);
+        next(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+    }
+)
+
+//this allows to get all the students from one campus in descending order by id
+router.get('/byCampus/:campusId', async (req, res, next) => {
+  try {
+    const { campusId } = req.params;
+    const students = await Student.findAll({
+      where: {
+        campusId: campusId
+      },
+      order: [['id', 'DESC']], // Sort by 'id' in descending order (modify the column name as needed)
+    });
+    students ? res.status(200).json(students) : res.status(404).send('Students Not Found for the Campus');
+
+  } catch (error) {
+    next(error);
+  }
+});
 
 //add a new student record to the students table (INSERT INTO...VALUES)
 router.post('/', async(req, res, next) => {

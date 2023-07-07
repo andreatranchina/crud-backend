@@ -1,6 +1,6 @@
 const express = require ('express');
 const router = express.Router();
-
+const { Sequelize, Op } = require('sequelize');
 const { Campus } = require('../db/models');
 
 // root: http://localhost/8080/api/campuses
@@ -28,6 +28,34 @@ router.get('/:id', async(req, res, next) =>{
     } catch (error){
         next(error);
     }
+});
+
+// Endpoint to get campuses sorted in alphabetical order (A-Z)
+router.get('/sortedCampus/ascending', async (req, res,next) => {
+  try {
+    const sortedCampuses = await Campus.findAll({
+      order: [['name', 'ASC']],
+    });
+    res.json(sortedCampuses);
+  } catch (error) {
+    console.error(error);
+    next(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get campuses sorted in alphabetical order (Z-A)
+router.get('/sortedCampus/descending', async (req, res,next) => {
+  try {
+    const sortedCampuses = await Campus.findAll({
+      order: [['name', 'DESC']],
+    });
+    res.json(sortedCampuses);
+  } catch (error) {
+    console.error(error);
+    next(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 //add a new campus record to the campuses table (INSERT INTO...VALUES)
